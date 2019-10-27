@@ -1,4 +1,9 @@
-import { call, put, takeLatest, takeEvery } from 'redux-saga/effects'
+import {
+    call,
+    put,
+    takeLatest,
+    takeEvery
+} from 'redux-saga/effects'
 import {
     ADD_TODO,
     DELETE_TODO,
@@ -9,7 +14,12 @@ import {
     FETCH_TODOS
 } from './actions/todos'
 
-const testDomain = `http://localhost:9000`;
+const ENV = process.env.NODE_ENV || "development";
+const config = {
+    "development": 'http://localhost:3200',
+    "production": '101.132.68.200:3200'
+}
+const testDomain = config[ENV];
 
 function* getAllTodos() {
     try {
@@ -43,7 +53,9 @@ function* saveTodo(action) {
 function* deleteTodo(action) {
     try {
         let fetchUrl = `${testDomain}/v1/todos/delete/${action.id}`
-        yield call(fetch, fetchUrl, { method: 'POST'})
+        yield call(fetch, fetchUrl, {
+            method: 'POST'
+        })
     } catch (e) {
         yield put(todosFailure(e.message))
     }
@@ -52,7 +64,9 @@ function* deleteTodo(action) {
 function* updateTodo(action) {
     try {
         let fetchUrl = `${testDomain}/v1/todos/update/${action.id}`
-        yield call(fetch, fetchUrl, { method: 'POST'})
+        yield call(fetch, fetchUrl, {
+            method: 'POST'
+        })
     } catch (e) {
         yield put(todosFailure(e.message))
     }
