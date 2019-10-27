@@ -14,12 +14,7 @@ import {
     FETCH_TODOS
 } from './actions/todos'
 
-const ENV = process.env.NODE_ENV || "development";
-const config = {
-    "development": 'http://localhost:3200',
-    "production": '101.132.68.200:3200'
-}
-const testDomain = config[ENV];
+const testDomain = 'http://localhost:3200';
 
 function* getAllTodos() {
     try {
